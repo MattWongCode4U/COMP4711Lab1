@@ -84,9 +84,91 @@
             return $won;
         }
         
-        if(winner('x',$squares)) echo 'X wins.';
-        else if (winner('o', $squares)) echo 'Y wins.';
-        else echo 'No winner yet.';
+        function winnerElegant($token, $pos){
+            for($row=0; $row<3; $row++){
+                $result = true;
+                for($col = 0; $col <3; $col++)
+                    if($pos[3*$row+$col] != $token){
+                        $result = false;
+                    }
+            }
+            return $result;
+        }
+
+        if(winner('x',$squares)){ echo 'X wins.';
+        }else if (winner('o', $squares)){ echo 'O wins.';
+        }else{ echo 'No winner yet.';}
+        
+        echo "</br>";
+        
+        if(winnerElegant('x', $sqaures)){ echo 'X elegant win';
+        }else if(winnerElegant('o', $squares)){ echo 'O elegant win';
+        }else{ echo 'No elegant winner yet.';}
+        
+        class Game{
+            var $pos;
+            
+            function __construct($squares){
+                $this->pos = str_split($squares);
+            }
+            
+            function winnerInGame($token){
+                $won = false;
+            
+                if(($this->pos[0] == $token) &&
+                    ($this->pos[1] == $token) &&
+                        ($this->pos[2] == $token)){
+                    $won = true;
+                
+                } else if (($this->pos[3] == $token) &&
+                            ($this->pos[4] == $token) &&
+                                ($this->pos[5] == $token)){
+                    $won = true;
+                
+                } else if (($this->pos[6] == $token) &&
+                            ($this->pos[7] == $token) &&
+                              ($this->pos[8] == $token)){
+                    $won = true;
+                
+                } else if (($this->pos[0] == $token) &&
+                               ($this->pos[3] == $token) &&
+                                 ($this->pos[6] == $token)){
+                    $won = true;
+                
+                }else if (($this->pos[1] == $token) &&
+                              ($this->pos[4] == $token) &&
+                                  ($this->pos[7] == $token)){
+                    $won = true;
+                
+                }else if (($this->pos[2] == $token) &&
+                             ($this->pos[5] == $token) &&
+                                 ($this->pos[8] == $token)){
+                    $won = true;
+                
+                }else if (($this->pos[0] == $token) &&
+                            ($this->pos[4] == $token) &&
+                                ($this->pos[8] == $token)){
+                    $won = true;
+                
+                } else if (($this->pos[2] == $token) &&
+                            ($this->pos[4] == $token) &&
+                                ($this->pos[6] == $token)){
+                    $won = true;
+                }
+                return $won;
+            }
+        }
+        
+        echo "</br>";
+        
+        $game = new Game($position);
+        if($game->winnerInGame('x')){
+            echo 'X wins in game obj';
+        }else if($game->winnerInGame('o')){
+            echo 'O wins in game obj';
+        }else {
+            echo 'No winner yet in game obj';
+        }
         ?>
     </body>
 </html>
