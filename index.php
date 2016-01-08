@@ -111,7 +111,8 @@
         
         $game = new Game($position);
         
-        
+        $game->pick_move();
+        $game->displayInGame();
         
         if(!$game->winnerInGame('x') && !$game->winnerInGame('o') && !$game->check_tie()){
             echo 'No winner yet :3';
@@ -122,8 +123,6 @@
         } else if($game->check_tie()){
             echo 'tie';
         }
-        $game->pick_move();
-        $game->displayInGame();
         
         ?>
     </body>
