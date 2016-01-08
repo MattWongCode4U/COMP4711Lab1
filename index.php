@@ -6,34 +6,6 @@
     </head>
     <body>
         <?php
-        /*$test = "hello ";
-        $name = "Matt";
-        echo $test .'my name is ' .$name;
-        
-        echo "</br>";
-        
-        $num1 = 20;
-        $num2 = 30;
-        $total = $num1 - $num2;
-        echo "I have " .$total ." dollars";
-        
-        echo "</br>";
-        
-        $cost = 15;
-        $result;
-        if($cost + 10 < 20){
-            $result = "You owe me " .$cost;
-        } else {
-            $result = "I have all your money, all " .$cost ." of them.";
-        }
-        echo $result;
-        
-        echo "</br>";
-        
-        $hoursworked = $_GET['hours'];
-        echo "You have worked: " .$hoursworked ." hours";
-        
-        echo "</br>";*/
         
         $position = $_GET['board'];
         $squares = str_split($position);
@@ -116,31 +88,41 @@
                 $link = '?board=' .$move;
                 return '<td><a href="'.$link.'">-</a></td>';
             }
+            
+            function pick_move(){
+                $position = rand(0,8);
+               
+                while($this->pos[$position] != '-'){
+                    $position = rand(0,8);
+                }
+                $this->pos[$position] = 'x';                    
+            }
+            
+            function check_tie(){
+                $tie = true;
+                for($i = 0; $i < 9; $i++){
+                    if($this->pos[$i] == '-'){
+                        $tie = false;
+                    }
+                }
+                return $tie;
+            }
         }
         
         $game = new Game($position);
-        if($game->winnerInGame('x')){
-            echo 'X wins in game obj';
-        }else if($game->winnerInGame('o')){
-            echo 'O wins in game obj';
-        }else {
-            echo 'No winner yet in game obj';
-        }
         
+        $game->pick_move();
         $game->displayInGame();
-        
-        /*function display(){
-            echo '<table cols="3" style="font-size:large; font-weiht:bold">';
-            echo '<tr>';
-            for($pos=0; $pos<9; $pos++){
-                echo '<td>-</td>';
-                if($pos %3 == 2) echo '</tr><tr>';
-            }
-            echo '</tr>';
-            echo '</table>';
+        if(!$game->winnerInGame('x') && !$game->winnerInGame('o') && !$game->check_tie()){
+            echo 'No winner yet :3';
+        } else if($game->winnerInGame('x')){
+            echo 'X wins :P';
+        } else if($game->winnerInGame('o')){
+            echo 'O wins :)';
+        } else if($game->check_tie()){
+            echo 'tie';
         }
         
-        display();*/
         ?>
     </body>
 </html>
