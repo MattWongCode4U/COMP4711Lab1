@@ -38,73 +38,6 @@
         $position = $_GET['board'];
         $squares = str_split($position);
         
-        function winner($token, $pos){
-            $won = false;
-            
-            if(($pos[0] == $token) &&
-                ($pos[1] == $token) &&
-                    ($pos[2] == $token)){
-                $won = true;
-                
-            } else if (($pos[3] == $token) &&
-                        ($pos[4] == $token) &&
-                            ($pos[5] == $token)){
-                $won = true;
-                
-            } else if (($pos[6] == $token) &&
-                        ($pos[7] == $token) &&
-                            ($pos[8] == $token)){
-                $won = true;
-                
-            } else if (($pos[0] == $token) &&
-                        ($pos[3] == $token) &&
-                            ($pos[6] == $token)){
-                $won = true;
-                
-            }else if (($pos[1] == $token) &&
-                        ($pos[4] == $token) &&
-                            ($pos[7] == $token)){
-                $won = true;
-                
-            }else if (($pos[2] == $token) &&
-                        ($pos[5] == $token) &&
-                            ($pos[8] == $token)){
-                $won = true;
-                
-            }else if (($pos[0] == $token) &&
-                        ($pos[4] == $token) &&
-                            ($pos[8] == $token)){
-                $won = true;
-                
-            } else if (($pos[2] == $token) &&
-                        ($pos[4] == $token) &&
-                            ($pos[6] == $token)){
-                $won = true;
-            }
-            return $won;
-        }
-        
-        function winnerElegant($token, $pos){
-            for($row=0; $row<3; $row++){
-                $result = true;
-                for($col = 0; $col <3; $col++)
-                    if($pos[3*$row+$col] != $token){
-                        $result = false;
-                    }
-            }
-            return $result;
-        }
-
-        if(winner('x',$squares)){ echo 'X wins.';
-        }else if (winner('o', $squares)){ echo 'O wins.';
-        }else{ echo 'No winner yet.';}
-        
-        echo "</br>";
-        
-        if(winnerElegant('x', $sqaures)){ echo 'X elegant win';
-        }else if(winnerElegant('o', $squares)){ echo 'O elegant win';
-        }else{ echo 'No elegant winner yet.';}
-        
         class Game{
             var $pos;
             
@@ -169,6 +102,19 @@
         }else {
             echo 'No winner yet in game obj';
         }
+        
+        function display(){
+            echo '<table cols="3" style="font-size:large; font-weiht:bold">';
+            echo '<tr>';
+            for($pos=0; $pos<9; $pos++){
+                echo '<td>-</td>';
+                if($pos %3 == 2) echo '</tr><tr>';
+            }
+            echo '</tr>';
+            echo '</table>';
+        }
+        
+        display();
         ?>
     </body>
 </html>
