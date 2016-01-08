@@ -113,7 +113,7 @@
                 $this->newposition = $this->pos;
                 $this->newposition[$which] = 'o';
                 $move = implode($this->newposition);
-                $link = '/?board=' .$move;
+                $link = '?board=' .$move;
                 return '<td><a href="'.$link.'">-</a></td>';
             }
         }
