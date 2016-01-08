@@ -6,7 +6,7 @@
     </head>
     <body>
         <?php
-        $test = "hello ";
+        /*$test = "hello ";
         $name = "Matt";
         echo $test .'my name is ' .$name;
         
@@ -33,7 +33,7 @@
         $hoursworked = $_GET['hours'];
         echo "You have worked: " .$hoursworked ." hours";
         
-        echo "</br>";
+        echo "</br>";*/
         
         $position = $_GET['board'];
         $squares = str_split($position);
@@ -90,9 +90,33 @@
                 }
                 return $won;
             }
+            
+            function displayInGame(){
+                echo '<table cols="3" style="font-size:large; font-weiht:bold">';
+                echo '<tr>';
+                for($pos=0; $pos<9; $pos++){
+                    //echo '<td>-</td>';
+                    echo $this->show_cell($pos);
+                    if($pos %3 == 2) {
+                        echo '</tr><tr>';
+                    }
+                }
+                echo '</tr>';
+                echo '</table>';
+            }
+            
+            function show_cell($which){
+                $token = $this->pos[$which];
+                if($token <> '-'){
+                    return '<td>' .$token .'</td>';
+                }
+                $this->newposition = $this->pos;
+                $this->newposition[$which] = 'o';
+                $move = implode($this->newposition);
+                $link = '/?board=' .$move;
+                return '<td><a href="'.$link.'">-</a></td>';
+            }
         }
-        
-        echo "</br>";
         
         $game = new Game($position);
         if($game->winnerInGame('x')){
@@ -103,7 +127,9 @@
             echo 'No winner yet in game obj';
         }
         
-        function display(){
+        $game->displayInGame();
+        
+        /*function display(){
             echo '<table cols="3" style="font-size:large; font-weiht:bold">';
             echo '<tr>';
             for($pos=0; $pos<9; $pos++){
@@ -114,7 +140,7 @@
             echo '</table>';
         }
         
-        display();
+        display();*/
         ?>
     </body>
 </html>
